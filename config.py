@@ -1,4 +1,5 @@
 from pathlib import Path
+from pydantic import AnyHttpUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 _env_path = Path(__file__).parent / ".env"
@@ -9,6 +10,7 @@ class Settings(BaseSettings):
     log_level: str
     celery_broker_url: str
     celery_result_backend: str
+    cors_origins: list[str | AnyHttpUrl] = []
 
     model_config = SettingsConfigDict(env_file=str(_env_path))
 
