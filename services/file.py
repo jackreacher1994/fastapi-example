@@ -6,8 +6,7 @@ from fastapi import UploadFile
 from pathlib import Path
 
 from database import get_current_session, transactional
-from models import FileCreate, File
-from worker import upload_task
+from models import FileCreate, File 
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +48,5 @@ class FileService:
                 size=orm.size,
                 content_type=orm.content_type
             ))
-        
-        upload_task.delay(client_id, [file.model_dump() for file in results])
 
         return results
